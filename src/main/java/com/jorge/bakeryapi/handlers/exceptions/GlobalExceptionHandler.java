@@ -1,4 +1,4 @@
-package com.jorge.bakeryapi.handlers;
+package com.jorge.bakeryapi.handlers.exceptions;
 
 import com.jorge.bakeryapi.handlers.exceptions.response.ExceptionResponse;
 import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;

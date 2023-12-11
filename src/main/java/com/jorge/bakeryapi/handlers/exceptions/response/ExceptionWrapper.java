@@ -1,6 +1,6 @@
 package com.jorge.bakeryapi.handlers.exceptions.response;
 
-import com.jorge.bakeryapi.handlers.exceptions.BaseResponse;
+import com.jorge.bakeryapi.handlers.BaseResponse;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

@@ -1,4 +1,4 @@
-package com.jorge.bakeryapi.handlers.exceptions;
+package com.jorge.bakeryapi.handlers;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
