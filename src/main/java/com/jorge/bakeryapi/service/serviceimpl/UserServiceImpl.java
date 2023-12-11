@@ -40,29 +40,35 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateInfo(UserDto dto, Long id) {
-        User userToUpdate = userRepository.findById(id).get();
+        User userToUpdate = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User with ID: " + id + " Not found"));
         modelMapper.map(dto, userToUpdate);
         return userRepository.save(userToUpdate);
     }
 
     @Override
     public void delete(Long id) {
-        User userToDelete = userRepository.findById(id).orElse(null);
+        User userToDelete = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User with ID: " + id + " Not found"));;
         userToDelete.setIsEnabled(false);
         userRepository.save(userToDelete);
     }
 
     public User assignRole(Long userid, Long roleid){
-        User userToAssignRole = userRepository.findById(userid).orElse(null);
-        Role roleToAssign = roleRepository.findById(roleid).orElse(null);
+        User userToAssignRole = userRepository.findById(userid)
+                .orElseThrow(() -> new NotFoundException("User with ID: " + userid + " Not found"));
+        Role roleToAssign = roleRepository.findById(roleid)
+                .orElseThrow(() -> new NotFoundException("Role with ID: " + roleid + " Not found"));
 
         userToAssignRole.getRoles().add(roleToAssign);
         return userRepository.save(userToAssignRole);
     }
 
     public User removeRole(Long userid, Long roleid){
-        User userToRemoveRole = userRepository.findById(userid).orElse(null);
-        Role roleToRemove = roleRepository.findById(roleid).orElse(null);
+        User userToRemoveRole = userRepository.findById(userid)
+                .orElseThrow(() -> new NotFoundException("User with ID: " + userid + " Not found"));
+        Role roleToRemove = roleRepository.findById(roleid)
+                .orElseThrow(() -> new NotFoundException("Role with ID: " + roleid + " Not found"));
 
         userToRemoveRole.getRoles().remove(roleToRemove);
         return userRepository.save(userToRemoveRole);

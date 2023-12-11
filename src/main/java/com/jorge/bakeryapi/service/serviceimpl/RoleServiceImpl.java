@@ -1,6 +1,7 @@
 package com.jorge.bakeryapi.service.serviceimpl;
 
 import com.jorge.bakeryapi.dto.RoleDto;
+import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
 import com.jorge.bakeryapi.model.Role;
 import com.jorge.bakeryapi.repository.RoleRepository;
 import com.jorge.bakeryapi.service.serviceinterface.RoleService;
@@ -23,7 +24,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role findById(Long id) {
-        return roleRepository.findById(id).get();
+        return roleRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Role with ID: " + id + " Not found"));
     }
 
     @Override
@@ -35,14 +37,16 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role updateInfo(RoleDto dto, Long id) {
-        Role roleToUpdate = roleRepository.findById(id).orElse(null);
+        Role roleToUpdate = roleRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Role with ID: " + id + " Not found"));
         modelMapper.map(dto, roleToUpdate);
         return roleRepository.save(roleToUpdate);
     }
 
     @Override
     public void delete(Long id) {
-        Role roleToDelete = roleRepository.findById(id).orElse(null);
+        Role roleToDelete = roleRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Role with ID: " + id + " Not found"));
         roleToDelete.setIsEnabled(false);
         roleRepository.save(roleToDelete);
     }

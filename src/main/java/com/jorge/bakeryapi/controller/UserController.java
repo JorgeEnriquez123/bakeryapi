@@ -5,6 +5,8 @@ import com.jorge.bakeryapi.model.User;
 import com.jorge.bakeryapi.service.serviceinterface.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +28,7 @@ public class UserController {
     }
 
     @PostMapping("")
-    public User saveUser(@Valid @RequestBody UserDto userDto){
-        return userService.save(userDto);
+    public ResponseEntity<User> saveUser(@Valid @RequestBody UserDto userDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userDto));
     }
-
 }
