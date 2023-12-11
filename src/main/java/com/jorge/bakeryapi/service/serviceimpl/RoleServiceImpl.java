@@ -2,9 +2,8 @@ package com.jorge.bakeryapi.service.serviceimpl;
 
 import com.jorge.bakeryapi.dto.RoleDto;
 import com.jorge.bakeryapi.model.Role;
-import com.jorge.bakeryapi.model.User;
 import com.jorge.bakeryapi.repository.RoleRepository;
-import com.jorge.bakeryapi.service.RoleService;
+import com.jorge.bakeryapi.service.serviceinterface.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

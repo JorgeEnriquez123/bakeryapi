@@ -5,7 +5,7 @@ import com.jorge.bakeryapi.model.Role;
 import com.jorge.bakeryapi.model.User;
 import com.jorge.bakeryapi.repository.RoleRepository;
 import com.jorge.bakeryapi.repository.UserRepository;
-import com.jorge.bakeryapi.service.UserService;
+import com.jorge.bakeryapi.service.serviceinterface.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

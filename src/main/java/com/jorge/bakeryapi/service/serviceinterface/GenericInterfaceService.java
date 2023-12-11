@@ -1,4 +1,4 @@
-package com.jorge.bakeryapi.service;
+package com.jorge.bakeryapi.service.serviceinterface;
 
 import java.util.List;
 import java.util.Optional;

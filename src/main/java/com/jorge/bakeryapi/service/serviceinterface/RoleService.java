@@ -1,4 +1,4 @@
-package com.jorge.bakeryapi.service;
+package com.jorge.bakeryapi.service.serviceinterface;
 
 import com.jorge.bakeryapi.dto.RoleDto;
 import com.jorge.bakeryapi.model.Role;
