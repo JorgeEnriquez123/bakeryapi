@@ -7,11 +7,11 @@ import lombok.*;
 @Getter
 @Setter
 public class UserDto {
-    @Size(min = 1, max = 15)
+    @Size(min = 5, max = 15, message = "Username must have more than 4 characters and less than 15 characters")
     @NotBlank(message = "Username cannot be empty")
     private String username;
 
+    @Size(min = 8, message = "Password must have more than 7 characters")
     @NotBlank(message = "Password cannot be empty")
     private String password;
-
 }

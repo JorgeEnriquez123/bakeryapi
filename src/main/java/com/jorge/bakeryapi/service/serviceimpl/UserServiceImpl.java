@@ -16,9 +16,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    UserRepository userRepository;
-    RoleRepository roleRepository;
-    ModelMapper modelMapper;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final ModelMapper modelMapper;
     @Override
     public List<User> findAll() {
         return userRepository.findAll();
@@ -33,14 +33,14 @@ public class UserServiceImpl implements UserService {
     public User save(UserDto dto) {
         User user = new User();
         modelMapper.map(dto, user);
-        return user;
+        return userRepository.save(user);
     }
 
     @Override
     public User updateInfo(UserDto dto, Long id) {
         User userToUpdate = userRepository.findById(id).orElse(null);
         modelMapper.map(dto, userToUpdate);
-        return userToUpdate;
+        return userRepository.save(userToUpdate);
     }
 
     @Override

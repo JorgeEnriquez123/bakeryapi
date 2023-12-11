@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RoleDto {
-    @Size(min = 1, max = 50)
+    @Size(max = 50, message = "Role's name must be less than 50 characters")
     @NotBlank(message = "Role's name cannot be empty")
     private String name;
 }

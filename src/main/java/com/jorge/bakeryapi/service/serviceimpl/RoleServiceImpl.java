@@ -15,8 +15,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {
-    RoleRepository roleRepository;
-    ModelMapper modelMapper;
+    private final RoleRepository roleRepository;
+    private final ModelMapper modelMapper;
     @Override
     public List<Role> findAll() {
         return roleRepository.findAll();
@@ -38,7 +38,7 @@ public class RoleServiceImpl implements RoleService {
     public Role updateInfo(RoleDto dto, Long id) {
         Role roleToUpdate = roleRepository.findById(id).orElse(null);
         modelMapper.map(dto, roleToUpdate);
-        return roleToUpdate;
+        return roleRepository.save(roleToUpdate);
     }
 
     @Override
