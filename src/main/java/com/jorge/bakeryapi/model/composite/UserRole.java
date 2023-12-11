@@ -1,5 +1,6 @@
 package com.jorge.bakeryapi.model.composite;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jorge.bakeryapi.model.Role;
 import com.jorge.bakeryapi.model.User;
@@ -15,14 +16,14 @@ import lombok.EqualsAndHashCode;
 @IdClass(UserRolePK.class)
 public class UserRole extends BaseCompositeEntity {
     @Id
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonManagedReference
+    @JsonBackReference
     private User user;
     @Id
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "role_id")
-    @JsonManagedReference
+    @JsonBackReference
     private Role role;
 }
 
