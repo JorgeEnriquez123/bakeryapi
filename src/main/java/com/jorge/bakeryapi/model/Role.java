@@ -14,7 +14,7 @@ import java.util.Set;
 @Data
 @Entity
 public class Role extends BaseEntity {
-    @Column(length = 50)
+    @Column(length = 50, nullable = false, unique = true)
     private String name;
     @ManyToMany(mappedBy = "roles")
     private Set<User> users = new HashSet<>();

@@ -13,8 +13,9 @@ import java.util.Set;
 @Data
 @Entity
 public class User extends BaseEntity {
-    @Column(length = 15)
+    @Column(length = 15, nullable = false, unique = true)
     private String username;
+    @Column(nullable = false)
     private String password;
 
     @ManyToMany(cascade = CascadeType.MERGE)
