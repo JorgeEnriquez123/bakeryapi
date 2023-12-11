@@ -4,10 +4,12 @@ import com.jorge.bakeryapi.handlers.exceptions.response.ExceptionResponse;
 import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
 import com.jorge.bakeryapi.handlers.exceptions.response.ValidationHandlerResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpServerErrorException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -28,14 +30,29 @@ public class GlobalExceptionHandler {
                 .errors(errorMap)
                 .build();
     }
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(RuntimeException.class)
+    public ExceptionResponse internalServerError(RuntimeException ex){
+        return buildExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ExceptionResponse methodNotAllowed(HttpRequestMethodNotSupportedException ex){
+        return buildExceptionResponse(HttpStatus.METHOD_NOT_ALLOWED, ex.getMessage());
+    }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
     public ExceptionResponse notFoundException(NotFoundException ex){
+        return buildExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    public ExceptionResponse buildExceptionResponse(HttpStatus httpStatus, String exceptionMessage){
         return ExceptionResponse.builder()
-                .status(HttpStatus.NOT_FOUND.value())
+                .status(httpStatus.value())
                 .timestamp(LocalDateTime.now())
-                .message(ex.getMessage())
+                .message(exceptionMessage)
                 .build();
     }
 }
