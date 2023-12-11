@@ -20,8 +20,14 @@ public class UserController {
         return userService.findAll();
     }
 
+    @GetMapping("/{id}")
+    public User findById(@PathVariable Long id){
+        return userService.findById(id);
+    }
+
     @PostMapping("")
-    public Object saveUser(@Valid @RequestBody UserDto userDto){
+    public User saveUser(@Valid @RequestBody UserDto userDto){
         return userService.save(userDto);
     }
+
 }

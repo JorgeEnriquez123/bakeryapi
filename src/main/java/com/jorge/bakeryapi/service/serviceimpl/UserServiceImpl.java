@@ -1,6 +1,7 @@
 package com.jorge.bakeryapi.service.serviceimpl;
 
 import com.jorge.bakeryapi.dto.UserDto;
+import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
 import com.jorge.bakeryapi.model.Role;
 import com.jorge.bakeryapi.model.User;
 import com.jorge.bakeryapi.repository.RoleRepository;
@@ -25,8 +26,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User with ID: " + id + " Not found"));
     }
 
     @Override
@@ -38,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateInfo(UserDto dto, Long id) {
-        User userToUpdate = userRepository.findById(id).orElse(null);
+        User userToUpdate = userRepository.findById(id).get();
         modelMapper.map(dto, userToUpdate);
         return userRepository.save(userToUpdate);
     }
