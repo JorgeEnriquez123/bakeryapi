@@ -8,5 +8,8 @@ public interface GenericInterfaceService<T, D>{
     T findById(Long id);
     T save(D dto);
     T updateInfo(D dto, Long id);
-    void delete(Long id);
+    T enable(Long id);
+    T disable(Long id);
+
+
 }

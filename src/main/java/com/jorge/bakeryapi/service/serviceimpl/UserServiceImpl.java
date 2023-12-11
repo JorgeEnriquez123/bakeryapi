@@ -47,13 +47,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Long id) {
-        User userToDelete = userRepository.findById(id)
+    public User enable(Long id) {
+        User userToEnable = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User with ID: " + id + " Not found"));;
-        userToDelete.setIsEnabled(false);
-        userRepository.save(userToDelete);
+        userToEnable.setIsEnabled(true);
+        return userRepository.save(userToEnable);
     }
 
+    @Override
+    public User disable(Long id) {
+        User userToDisable = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User with ID: " + id + " Not found"));;
+        userToDisable.setIsEnabled(false);
+        return userRepository.save(userToDisable);
+    }
+
+    @Override
     public User assignRole(Long userid, Long roleid){
         User userToAssignRole = userRepository.findById(userid)
                 .orElseThrow(() -> new NotFoundException("User with ID: " + userid + " Not found"));
@@ -64,6 +73,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(userToAssignRole);
     }
 
+    @Override
     public User removeRole(Long userid, Long roleid){
         User userToRemoveRole = userRepository.findById(userid)
                 .orElseThrow(() -> new NotFoundException("User with ID: " + userid + " Not found"));

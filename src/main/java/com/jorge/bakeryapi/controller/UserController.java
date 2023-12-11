@@ -31,4 +31,29 @@ public class UserController {
     public ResponseEntity<User> saveUser(@Valid @RequestBody UserDto userDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userDto));
     }
+
+    @PutMapping("/{id}")
+    public User updateUserInfo(@Valid @RequestBody UserDto userDto, @PathVariable Long id){
+        return userService.updateInfo(userDto, id);
+    }
+
+    @PatchMapping("/enable/{id}")
+    public User enableUser(@PathVariable Long id){
+        return userService.enable(id);
+    }
+
+    @PatchMapping("/disable/{id}")
+    public User disableUser(@PathVariable Long id){
+        return userService.disable(id);
+    }
+
+    @PatchMapping("/{userid}/assignrole/{roleid}")
+    public User assignRoleToUser(@PathVariable Long userid, @PathVariable Long roleid){
+        return userService.assignRole(userid, roleid);
+    }
+
+    @PatchMapping("/{userid}/removeRole/{roleid}")
+    public User removeRoleFromUser(@PathVariable Long userid, @PathVariable Long roleid){
+        return userService.removeRole(userid, roleid);
+    }
 }

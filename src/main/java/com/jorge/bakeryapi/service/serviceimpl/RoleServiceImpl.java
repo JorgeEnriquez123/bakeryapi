@@ -44,10 +44,18 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void delete(Long id) {
+    public Role enable(Long id) {
+        Role roleToEnable = roleRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Role with ID: " + id + " Not found"));
+        roleToEnable.setIsEnabled(false);
+        return roleRepository.save(roleToEnable);
+    }
+
+    @Override
+    public Role disable(Long id) {
         Role roleToDelete = roleRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Role with ID: " + id + " Not found"));
         roleToDelete.setIsEnabled(false);
-        roleRepository.save(roleToDelete);
+        return roleRepository.save(roleToDelete);
     }
 }
