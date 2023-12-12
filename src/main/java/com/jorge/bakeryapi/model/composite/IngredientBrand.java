@@ -1,6 +1,7 @@
 package com.jorge.bakeryapi.model.composite;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jorge.bakeryapi.model.Brand;
 import com.jorge.bakeryapi.model.Ingredient;
 import com.jorge.bakeryapi.model.Product;
@@ -22,12 +23,12 @@ public class IngredientBrand extends BaseCompositeEntity {
     @Id
     @ManyToOne
     @JoinColumn(name = "ingredient_id")
-    @JsonBackReference
+    @JsonManagedReference
     private Ingredient ingredient;
     @Id
     @ManyToOne
     @JoinColumn(name = "brand_id")
-    @JsonBackReference
+    @JsonManagedReference
     private Brand brand;
 
     @Column(nullable = false, columnDefinition = "decimal(6,2)")

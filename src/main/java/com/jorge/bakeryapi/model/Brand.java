@@ -1,5 +1,6 @@
 package com.jorge.bakeryapi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jorge.bakeryapi.model.base.BaseEntity;
@@ -24,7 +25,7 @@ public class Brand extends BaseEntity {
     @Column(length = 100, nullable = false, unique = true)
     private String name;
     @OneToMany(mappedBy = "brand", fetch = FetchType.EAGER)
-    @JsonManagedReference
+    @JsonBackReference
     private Set<IngredientBrand> ingredients = new HashSet<>();
 
     @Override

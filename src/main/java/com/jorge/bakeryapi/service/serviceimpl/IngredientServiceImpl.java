@@ -84,7 +84,7 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public void removeBrand(Long ingredientid, Long brandid){
+    public IngredientBrand removeBrand(Long ingredientid, Long brandid){
         Ingredient ingredientToRemoveBrand = ingredientRepository.findById(ingredientid)
                 .orElseThrow(() -> new NotFoundException("Ingredient with ID: " + ingredientid + " Not found"));
         Brand brandToRemove = brandRepository.findById(brandid)
@@ -96,6 +96,14 @@ public class IngredientServiceImpl implements IngredientService {
 
         IngredientBrand ingredientBrandToRemove = ingredientBrandRepository.findById(ingredientBrandPK).get();
         ingredientBrandRepository.delete(ingredientBrandToRemove);
+        return ingredientBrandToRemove;
+    }
+
+    @Override
+    public List<IngredientBrand> getBrandPrices(Long ingredientid) {
+        Ingredient ingredientToSearchBrands = ingredientRepository.findById(ingredientid)
+                .orElseThrow(() -> new NotFoundException("Ingredient with ID: " + ingredientid + " Not found"));
+        return ingredientBrandRepository.findByIngredient_Name(ingredientToSearchBrands.getName());
     }
 
     @Override

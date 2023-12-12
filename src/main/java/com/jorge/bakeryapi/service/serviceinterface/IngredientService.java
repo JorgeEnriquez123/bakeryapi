@@ -6,9 +6,12 @@ import com.jorge.bakeryapi.model.User;
 import com.jorge.bakeryapi.model.composite.IngredientBrand;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface IngredientService extends GenericInterfaceService<Ingredient, IngredientDto> {
     IngredientBrand assignBrand(Long ingredientid, Long brandid, BigDecimal price);
-    void removeBrand(Long ingredientid, Long brandid);
+    IngredientBrand removeBrand(Long ingredientid, Long brandid);
+    List<IngredientBrand> getBrandPrices(Long ingredientid);
     Ingredient checkIngredientIfAvailable(String ingredientName);
+
 }

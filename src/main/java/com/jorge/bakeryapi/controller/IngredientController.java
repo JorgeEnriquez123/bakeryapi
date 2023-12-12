@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/ingredient")
 public class IngredientController {
-    IngredientService ingredientService;
+    private final IngredientService ingredientService;
     @GetMapping("")
     public List<Ingredient> findAll(){
         return ingredientService.findAll();
@@ -26,6 +26,11 @@ public class IngredientController {
     @GetMapping("/{id}")
     public Ingredient findById(@PathVariable Long id){
         return ingredientService.findById(id);
+    }
+
+    @GetMapping("/{id}/brands")
+    public List<IngredientBrand> getBrands(@PathVariable Long id){
+        return ingredientService.getBrandPrices(id);
     }
 
     @PostMapping("")
@@ -54,8 +59,7 @@ public class IngredientController {
     }
 
     @PatchMapping("/{ingredientid}/removeBrand/{brandid}")
-    public String removeBrandFromIngredient(@PathVariable Long ingredientid, @PathVariable Long brandid){
-        ingredientService.removeBrand(ingredientid, brandid);
-        return "Brand removed successfully";
+    public IngredientBrand removeBrandFromIngredient(@PathVariable Long ingredientid, @PathVariable Long brandid){
+        return ingredientService.removeBrand(ingredientid, brandid);
     }
 }
