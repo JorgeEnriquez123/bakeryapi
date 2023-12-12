@@ -2,6 +2,7 @@ package com.jorge.bakeryapi.service.serviceimpl;
 
 import com.jorge.bakeryapi.dto.UserDto;
 import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
+import com.jorge.bakeryapi.handlers.exceptions.UsernameAlreadyTakenException;
 import com.jorge.bakeryapi.model.Role;
 import com.jorge.bakeryapi.model.User;
 import com.jorge.bakeryapi.repository.RoleRepository;
@@ -33,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(UserDto dto) {
-        User user = new User();
+        User user = checkUserIfAvailable(dto.getUsername());
         modelMapper.map(dto, user);
         return userRepository.save(user);
     }
@@ -42,6 +43,9 @@ public class UserServiceImpl implements UserService {
     public User updateInfo(UserDto dto, Long id) {
         User userToUpdate = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User with ID: " + id + " Not found"));
+        if(!dto.getUsername().equals(userToUpdate.getUsername())) {
+            checkUserIfAvailable(dto.getUsername());
+        }
         modelMapper.map(dto, userToUpdate);
         return userRepository.save(userToUpdate);
     }
@@ -83,4 +87,15 @@ public class UserServiceImpl implements UserService {
         userToRemoveRole.getRoles().remove(roleToRemove);
         return userRepository.save(userToRemoveRole);
     }
+
+    @Override
+    public User checkUserIfAvailable(String username) {
+        User user = userRepository.findByUsername(username).orElse(new User());
+        if(!user.equals(new User())){
+            throw new UsernameAlreadyTakenException("Username: '" + username + "' already exits");
+        }
+        return user;
+    }
+
+
 }
