@@ -10,6 +10,7 @@ import com.jorge.bakeryapi.repository.UserRepository;
 import com.jorge.bakeryapi.service.serviceinterface.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
     @Override
     public List<User> findAll() {
@@ -35,6 +37,10 @@ public class UserServiceImpl implements UserService {
     public User save(UserDto dto) {
         User user = checkUserIfAvailable(dto.getUsername());
         modelMapper.map(dto, user);
+
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+
         return userRepository.save(user);
     }
 
@@ -46,6 +52,10 @@ public class UserServiceImpl implements UserService {
             checkUserIfAvailable(dto.getUsername());
         }
         modelMapper.map(dto, userToUpdate);
+
+        String encodedPassword = passwordEncoder.encode(userToUpdate.getPassword());
+        userToUpdate.setPassword(encodedPassword);
+
         return userRepository.save(userToUpdate);
     }
 
