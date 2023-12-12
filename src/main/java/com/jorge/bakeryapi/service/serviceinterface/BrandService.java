@@ -6,4 +6,5 @@ import com.jorge.bakeryapi.model.Role;
 
 public interface BrandService extends GenericInterfaceService<Brand, BrandDto>{
     Brand checkBrandIfAvailable(String brandName);
+
 }
