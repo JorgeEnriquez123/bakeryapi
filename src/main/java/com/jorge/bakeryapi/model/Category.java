@@ -1,5 +1,6 @@
 package com.jorge.bakeryapi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.jorge.bakeryapi.model.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,8 @@ public class Category extends BaseEntity {
     private String name;
     @Column(length = 200)
     private String description;
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "category")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
+    @JsonBackReference
     private Set<Product> products = new HashSet<>();
 
     @Override

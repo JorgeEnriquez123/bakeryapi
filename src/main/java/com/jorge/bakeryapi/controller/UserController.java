@@ -53,10 +53,4 @@ public class UserController {
     public User removeRoleFromUser(@PathVariable Long userid, @PathVariable Long roleid){
         return userService.removeRole(userid, roleid);
     }
-
-    @DeleteMapping("/{userid}")
-    public void listss(@PathVariable Long userid){
-        User user = userService.findById(userid);
-        System.out.println(userService.findById(userid).getRoles());
-    }
 }

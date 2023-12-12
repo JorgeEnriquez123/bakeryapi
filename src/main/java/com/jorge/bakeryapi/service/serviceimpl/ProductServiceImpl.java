@@ -72,6 +72,7 @@ public class ProductServiceImpl implements ProductService {
         Category categoryToAssign = categoryRepository.findById(categoryid)
                 .orElseThrow(() -> new NotFoundException("Category with ID: " + categoryid + " Not found"));
 
+        categoryToAssign.getProducts().add(productToAssignCategory);
         productToAssignCategory.setCategory(categoryToAssign);
         return productRepository.save(productToAssignCategory);
     }
@@ -80,6 +81,10 @@ public class ProductServiceImpl implements ProductService {
     public Product removeCategory(Long productid){
         Product productToRemoveCategory = productRepository.findById(productid)
                 .orElseThrow(() -> new NotFoundException("Product with ID: " + productid + " Not found"));
+        Category categoryFromProduct = productToRemoveCategory.getCategory();
+        if(categoryFromProduct != null){
+            categoryFromProduct.getProducts().remove(productToRemoveCategory);
+        }
         productToRemoveCategory.setCategory(null);
         return productRepository.save(productToRemoveCategory);
     }

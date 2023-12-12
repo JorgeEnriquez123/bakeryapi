@@ -1,10 +1,8 @@
 package com.jorge.bakeryapi.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jorge.bakeryapi.model.base.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +25,7 @@ public class Product extends BaseEntity {
     private BigDecimal price;
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonManagedReference
     private Category category;
 
     @Override
