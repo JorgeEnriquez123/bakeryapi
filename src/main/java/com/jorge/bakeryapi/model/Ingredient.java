@@ -2,17 +2,17 @@ package com.jorge.bakeryapi.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jorge.bakeryapi.model.base.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.jorge.bakeryapi.model.composite.IngredientBrand;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Data
 @Entity
@@ -25,10 +25,12 @@ public class Ingredient extends BaseEntity {
     private String name;
     @Column(length = 200)
     private String description;
-    @ManyToOne
-    @JoinColumn(name = "brand_id")
+    @OneToMany(mappedBy = "ingredient", fetch = FetchType.EAGER)
     @JsonManagedReference
-    private Brand brand;
+    private Set<IngredientBrand> brands = new HashSet<>();
+
+    @ManyToMany(mappedBy = "ingredients", fetch = FetchType.LAZY)
+    private Set<Product> products = new HashSet<>();
 
     @Override
     public boolean equals(Object object) {

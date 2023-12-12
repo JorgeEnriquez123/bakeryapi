@@ -9,7 +9,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Data
 @Entity
@@ -23,10 +25,17 @@ public class Product extends BaseEntity {
     private String description;
     @Column(nullable = false, columnDefinition = "decimal(6,2)")
     private BigDecimal price;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     @JsonManagedReference
     private Category category;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "product_ingredient",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     @Override
     public boolean equals(Object object) {

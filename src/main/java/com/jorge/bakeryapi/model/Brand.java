@@ -1,11 +1,10 @@
 package com.jorge.bakeryapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jorge.bakeryapi.model.base.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToMany;
+import com.jorge.bakeryapi.model.composite.IngredientBrand;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,9 +23,9 @@ import java.util.Set;
 public class Brand extends BaseEntity {
     @Column(length = 100, nullable = false, unique = true)
     private String name;
-    @ManyToMany(mappedBy = "brand", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Set<Ingredient> ingredients = new HashSet<>();
+    @OneToMany(mappedBy = "brand", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private Set<IngredientBrand> ingredients = new HashSet<>();
 
     @Override
     public boolean equals(Object object) {
