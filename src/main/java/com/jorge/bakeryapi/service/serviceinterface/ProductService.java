@@ -1,11 +1,11 @@
 package com.jorge.bakeryapi.service.serviceinterface;
 
+import com.jorge.bakeryapi.dto.ProductDto;
 import com.jorge.bakeryapi.model.Product;
-import com.jorge.bakeryapi.model.User;
 
-public interface ProductService extends GenericInterfaceService<Product, Long>{
+public interface ProductService extends GenericInterfaceService<Product, ProductDto>{
     Product assignCategory(Long productid, Long categoryid);
-    Product removeCategory(Long productid, Long categoryid);
+    Product removeCategory(Long productid);
 
     Product checkProductIfAvailable(String productName);
 }

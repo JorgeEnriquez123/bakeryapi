@@ -1,7 +1,6 @@
 package com.jorge.bakeryapi.model.composite;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jorge.bakeryapi.model.Role;
 import com.jorge.bakeryapi.model.User;
 import com.jorge.bakeryapi.model.base.BaseCompositeEntity;

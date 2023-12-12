@@ -64,6 +64,12 @@ public class GlobalExceptionHandler {
         return buildExceptionResponse(HttpStatus.CONFLICT, ex.getMessage());
     }
 
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(ProductAlreadyExists.class)
+    public ExceptionResponse productAlreadyTaken(ProductAlreadyExists ex){
+        return buildExceptionResponse(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
     public ExceptionResponse buildExceptionResponse(HttpStatus httpStatus, String exceptionMessage){
         return ExceptionResponse.builder()
                 .status(httpStatus.value())

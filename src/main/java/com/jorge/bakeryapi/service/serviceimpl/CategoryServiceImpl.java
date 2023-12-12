@@ -1,10 +1,8 @@
 package com.jorge.bakeryapi.service.serviceimpl;
 
 import com.jorge.bakeryapi.dto.CategoryDto;
-import com.jorge.bakeryapi.dto.CategoryDto;
-import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
 import com.jorge.bakeryapi.handlers.exceptions.CategoryAlreadyExists;
-import com.jorge.bakeryapi.model.Category;
+import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
 import com.jorge.bakeryapi.model.Category;
 import com.jorge.bakeryapi.repository.CategoryRepository;
 import com.jorge.bakeryapi.service.serviceinterface.CategoryService;

@@ -3,7 +3,6 @@ package com.jorge.bakeryapi.service.serviceimpl;
 import com.jorge.bakeryapi.dto.RoleDto;
 import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
 import com.jorge.bakeryapi.handlers.exceptions.RoleAlreadyExists;
-import com.jorge.bakeryapi.handlers.exceptions.UsernameAlreadyExists;
 import com.jorge.bakeryapi.model.Role;
 import com.jorge.bakeryapi.repository.RoleRepository;
 import com.jorge.bakeryapi.service.serviceinterface.RoleService;
