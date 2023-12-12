@@ -8,6 +8,8 @@ import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -16,24 +18,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BaseCompositeEntity {
-    @Column(name = "is_enabled", columnDefinition = "BOOLEAN default true")
-    private Boolean isEnabled;
-
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP")
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP")
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    private LocalDateTime updatedAt;
     @PrePersist
     public void prePersist(){
         createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-        isEnabled = true;
-    }
-    @PreUpdate
-    public void preUpdate(){
-        updatedAt = LocalDateTime.now();
     }
 }
