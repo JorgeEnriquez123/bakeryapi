@@ -1,8 +1,8 @@
 package com.jorge.bakeryapi.service.serviceimpl;
 
 import com.jorge.bakeryapi.dto.CategoryDto;
-import com.jorge.bakeryapi.handlers.exceptions.CategoryAlreadyExists;
 import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
+import com.jorge.bakeryapi.handlers.exceptions.UniqueViolationException;
 import com.jorge.bakeryapi.model.Category;
 import com.jorge.bakeryapi.repository.CategoryRepository;
 import com.jorge.bakeryapi.service.serviceinterface.CategoryService;
@@ -66,7 +66,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Category checkCategoryIfAvailable(String categoryName) {
         Category category = categoryRepository.findByName(categoryName).orElse(new Category());
         if(!category.equals(new Category())){
-            throw new CategoryAlreadyExists("Category name: '" + categoryName + "' already exits");
+            throw new UniqueViolationException("Category name: '" + categoryName + "' already exits");
         }
         return category;
     }

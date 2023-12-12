@@ -2,7 +2,7 @@ package com.jorge.bakeryapi.service.serviceimpl;
 
 import com.jorge.bakeryapi.dto.UserDto;
 import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
-import com.jorge.bakeryapi.handlers.exceptions.UsernameAlreadyExists;
+import com.jorge.bakeryapi.handlers.exceptions.UniqueViolationException;
 import com.jorge.bakeryapi.model.Role;
 import com.jorge.bakeryapi.model.User;
 import com.jorge.bakeryapi.repository.RoleRepository;
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
     public User checkUserIfAvailable(String username) {
         User user = userRepository.findByUsername(username).orElse(new User());
         if(!user.equals(new User())){
-            throw new UsernameAlreadyExists("Username: '" + username + "' already exits");
+            throw new UniqueViolationException("Username: '" + username + "' already exits");
         }
         return user;
     }

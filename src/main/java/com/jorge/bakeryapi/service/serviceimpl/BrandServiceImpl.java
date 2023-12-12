@@ -1,10 +1,8 @@
 package com.jorge.bakeryapi.service.serviceimpl;
 
 import com.jorge.bakeryapi.dto.BrandDto;
-import com.jorge.bakeryapi.dto.BrandDto;
 import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
-import com.jorge.bakeryapi.handlers.exceptions.BrandAlreadyExists;
-import com.jorge.bakeryapi.model.Brand;
+import com.jorge.bakeryapi.handlers.exceptions.UniqueViolationException;
 import com.jorge.bakeryapi.model.Brand;
 import com.jorge.bakeryapi.repository.BrandRepository;
 import com.jorge.bakeryapi.service.serviceinterface.BrandService;
@@ -68,7 +66,7 @@ public class BrandServiceImpl implements BrandService {
     public Brand checkBrandIfAvailable(String brandname) {
         Brand brand = brandRepository.findByName(brandname).orElse(new Brand());
         if(!brand.equals(new Brand())){
-            throw new BrandAlreadyExists("Brand name: '" + brandname + "' already exits");
+            throw new UniqueViolationException("Brand name: '" + brandname + "' already exits");
         }
         return brand;
     }

@@ -47,38 +47,8 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(UsernameAlreadyExists.class)
-    public ExceptionResponse usernameAlreadyTaken(UsernameAlreadyExists ex){
-        return buildExceptionResponse(HttpStatus.CONFLICT, ex.getMessage());
-    }
-
-    @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(RoleAlreadyExists.class)
-    public ExceptionResponse roleAlreadyTaken(RoleAlreadyExists ex){
-        return buildExceptionResponse(HttpStatus.CONFLICT, ex.getMessage());
-    }
-
-    @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(CategoryAlreadyExists.class)
-    public ExceptionResponse categoryAlreadyTaken(CategoryAlreadyExists ex){
-        return buildExceptionResponse(HttpStatus.CONFLICT, ex.getMessage());
-    }
-
-    @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(ProductAlreadyExists.class)
-    public ExceptionResponse productAlreadyTaken(ProductAlreadyExists ex){
-        return buildExceptionResponse(HttpStatus.CONFLICT, ex.getMessage());
-    }
-
-    @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(BrandAlreadyExists.class)
-    public ExceptionResponse brandAlreadyTaken(BrandAlreadyExists ex){
-        return buildExceptionResponse(HttpStatus.CONFLICT, ex.getMessage());
-    }
-
-    @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(IngredientNameAlreadyExists.class)
-    public ExceptionResponse ingredientAlreadyTaken(IngredientNameAlreadyExists ex){
+    @ExceptionHandler(UniqueViolationException.class)
+    public ExceptionResponse dataAlreadyInDB(UniqueViolationException ex){
         return buildExceptionResponse(HttpStatus.CONFLICT, ex.getMessage());
     }
 

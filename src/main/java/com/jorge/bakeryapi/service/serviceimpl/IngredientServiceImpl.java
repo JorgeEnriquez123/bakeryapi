@@ -1,8 +1,8 @@
 package com.jorge.bakeryapi.service.serviceimpl;
 
 import com.jorge.bakeryapi.dto.IngredientDto;
-import com.jorge.bakeryapi.handlers.exceptions.IngredientNameAlreadyExists;
 import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
+import com.jorge.bakeryapi.handlers.exceptions.UniqueViolationException;
 import com.jorge.bakeryapi.model.Ingredient;
 import com.jorge.bakeryapi.model.Brand;
 import com.jorge.bakeryapi.model.composite.IngredientBrand;
@@ -110,7 +110,7 @@ public class IngredientServiceImpl implements IngredientService {
     public Ingredient checkIngredientIfAvailable(String ingredientname) {
         Ingredient ingredient = ingredientRepository.findByName(ingredientname).orElse(new Ingredient());
         if(!ingredient.equals(new Ingredient())){
-            throw new IngredientNameAlreadyExists("Ingredientname: '" + ingredientname + "' already exits");
+            throw new UniqueViolationException("Ingredientname: '" + ingredientname + "' already exits");
         }
         return ingredient;
     }

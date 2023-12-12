@@ -2,7 +2,7 @@ package com.jorge.bakeryapi.service.serviceimpl;
 
 import com.jorge.bakeryapi.dto.ProductDto;
 import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
-import com.jorge.bakeryapi.handlers.exceptions.ProductAlreadyExists;
+import com.jorge.bakeryapi.handlers.exceptions.UniqueViolationException;
 import com.jorge.bakeryapi.model.*;
 import com.jorge.bakeryapi.repository.CategoryRepository;
 import com.jorge.bakeryapi.repository.IngredientRepository;
@@ -115,7 +115,7 @@ public class ProductServiceImpl implements ProductService {
     public Product checkProductIfAvailable(String productname) {
         Product product = productRepository.findByName(productname).orElse(new Product());
         if(!product.equals(new Product())){
-            throw new ProductAlreadyExists("Product name: '" + productname + "' already exits");
+            throw new UniqueViolationException("Product name: '" + productname + "' already exits");
         }
         return product;
     }

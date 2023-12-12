@@ -2,7 +2,7 @@ package com.jorge.bakeryapi.service.serviceimpl;
 
 import com.jorge.bakeryapi.dto.RoleDto;
 import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
-import com.jorge.bakeryapi.handlers.exceptions.RoleAlreadyExists;
+import com.jorge.bakeryapi.handlers.exceptions.UniqueViolationException;
 import com.jorge.bakeryapi.model.Role;
 import com.jorge.bakeryapi.repository.RoleRepository;
 import com.jorge.bakeryapi.service.serviceinterface.RoleService;
@@ -66,7 +66,7 @@ public class RoleServiceImpl implements RoleService {
     public Role checkRoleIfAvailable(String rolename) {
         Role role = roleRepository.findByName(rolename).orElse(new Role());
         if(!role.equals(new Role())){
-            throw new RoleAlreadyExists("Role name: '" + rolename + "' already exits");
+            throw new UniqueViolationException("Role name: '" + rolename + "' already exits");
         }
         return role;
     }
