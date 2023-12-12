@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Component
 @RequiredArgsConstructor
@@ -30,21 +33,31 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-
-        final String userEmail = jwtService.getUsernameFromToken(token);
-
-        if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){
-            UserDetails userAuthenticated = userDetailsService.loadUserByUsername(userEmail);
-            if(jwtService.isTokenValid(token, userAuthenticated)){
-                UsernamePasswordAuthenticationToken authtoken = new UsernamePasswordAuthenticationToken(
-                        userEmail,
-                        null,
-                        userAuthenticated.getAuthorities());
-                authtoken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authtoken);
+        try {
+            final String userEmail = jwtService.getUsernameFromToken(token);
+            if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userAuthenticated = userDetailsService.loadUserByUsername(userEmail);
+                if (jwtService.isTokenValid(token, userAuthenticated)) {
+                    UsernamePasswordAuthenticationToken authtoken = new UsernamePasswordAuthenticationToken(
+                            userEmail,
+                            null,
+                            userAuthenticated.getAuthorities());
+                    authtoken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authtoken);
+                }
             }
+            filterChain.doFilter(request, response);
         }
-        filterChain.doFilter(request, response);
+        catch (Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setContentType("application/json");
+            String json = "{"
+                    + "\"timestamp\": \"" + new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()) + "\","
+                    + "\"status\": 500,"
+                    + "\"error\": \"" + e.getMessage() + "\""
+                    + "}";
+            response.getWriter().write(json);
+        }
     }
 
     private String getTokenFromRequest(HttpServletRequest request) {

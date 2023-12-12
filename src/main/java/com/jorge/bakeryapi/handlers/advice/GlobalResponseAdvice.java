@@ -8,10 +8,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 
 @RestControllerAdvice
 public class GlobalResponseAdvice implements ResponseBodyAdvice<Object> {
@@ -26,6 +28,11 @@ public class GlobalResponseAdvice implements ResponseBodyAdvice<Object> {
                                   ServerHttpRequest request, ServerHttpResponse response) {
         if (body instanceof ExceptionWrapper) {
             return body;
+        }
+        if (body instanceof LinkedHashMap<?, ?> bodyMap) {
+            if (bodyMap.containsKey("status") && !bodyMap.get("status").equals(200)) {
+                return body;
+            }
         }
         return SuccessResponse.builder()
                 .status(HttpStatus.OK.value())
