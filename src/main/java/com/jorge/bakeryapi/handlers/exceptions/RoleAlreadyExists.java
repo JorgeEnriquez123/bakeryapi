@@ -1,10 +1,9 @@
 package com.jorge.bakeryapi.handlers.exceptions;
 
-
 import org.springframework.http.HttpStatus;
 
-public class UsernameAlreadyTakenException extends HttpStatusBaseException{
-    public UsernameAlreadyTakenException(String message) {
+public class RoleAlreadyExists extends HttpStatusBaseException{
+    public RoleAlreadyExists(String message) {
         super(message, HttpStatus.CONFLICT);
     }
 }

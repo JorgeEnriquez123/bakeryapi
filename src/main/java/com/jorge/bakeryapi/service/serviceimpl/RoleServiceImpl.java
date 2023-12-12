@@ -2,6 +2,8 @@ package com.jorge.bakeryapi.service.serviceimpl;
 
 import com.jorge.bakeryapi.dto.RoleDto;
 import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
+import com.jorge.bakeryapi.handlers.exceptions.RoleAlreadyExists;
+import com.jorge.bakeryapi.handlers.exceptions.UsernameAlreadyExists;
 import com.jorge.bakeryapi.model.Role;
 import com.jorge.bakeryapi.repository.RoleRepository;
 import com.jorge.bakeryapi.service.serviceinterface.RoleService;
@@ -10,7 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +31,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role save(RoleDto dto) {
-        Role role = new Role();
+        Role role = checkRoleIfAvailable(dto.getName());
         modelMapper.map(dto, role);
         return roleRepository.save(role);
     }
@@ -39,6 +40,9 @@ public class RoleServiceImpl implements RoleService {
     public Role updateInfo(RoleDto dto, Long id) {
         Role roleToUpdate = roleRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Role with ID: " + id + " Not found"));
+        if(!dto.getName().equals(roleToUpdate.getName())) {
+            checkRoleIfAvailable(dto.getName());
+        }
         modelMapper.map(dto, roleToUpdate);
         return roleRepository.save(roleToUpdate);
     }
@@ -47,7 +51,7 @@ public class RoleServiceImpl implements RoleService {
     public Role enable(Long id) {
         Role roleToEnable = roleRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Role with ID: " + id + " Not found"));
-        roleToEnable.setIsEnabled(false);
+        roleToEnable.setIsEnabled(true);
         return roleRepository.save(roleToEnable);
     }
 
@@ -57,5 +61,14 @@ public class RoleServiceImpl implements RoleService {
                 .orElseThrow(() -> new NotFoundException("Role with ID: " + id + " Not found"));
         roleToDelete.setIsEnabled(false);
         return roleRepository.save(roleToDelete);
+    }
+
+    @Override
+    public Role checkRoleIfAvailable(String rolename) {
+        Role role = roleRepository.findByName(rolename).orElse(new Role());
+        if(!role.equals(new Role())){
+            throw new RoleAlreadyExists("Role name: '" + rolename + "' already exits");
+        }
+        return role;
     }
 }

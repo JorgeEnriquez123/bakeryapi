@@ -2,7 +2,7 @@ package com.jorge.bakeryapi.service.serviceimpl;
 
 import com.jorge.bakeryapi.dto.UserDto;
 import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
-import com.jorge.bakeryapi.handlers.exceptions.UsernameAlreadyTakenException;
+import com.jorge.bakeryapi.handlers.exceptions.UsernameAlreadyExists;
 import com.jorge.bakeryapi.model.Role;
 import com.jorge.bakeryapi.model.User;
 import com.jorge.bakeryapi.repository.RoleRepository;
@@ -13,7 +13,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -92,7 +91,7 @@ public class UserServiceImpl implements UserService {
     public User checkUserIfAvailable(String username) {
         User user = userRepository.findByUsername(username).orElse(new User());
         if(!user.equals(new User())){
-            throw new UsernameAlreadyTakenException("Username: '" + username + "' already exits");
+            throw new UsernameAlreadyExists("Username: '" + username + "' already exits");
         }
         return user;
     }

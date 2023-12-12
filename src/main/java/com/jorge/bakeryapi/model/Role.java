@@ -11,9 +11,9 @@ import jakarta.persistence.ManyToMany;
 import lombok.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @NoArgsConstructor
@@ -30,5 +30,18 @@ public class Role extends BaseEntity {
     public String toString() {
         return "Role{" +
                 "name='" + name + '\'';
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Role role)) return false;
+        if (!super.equals(object)) return false;
+        return Objects.equals(name, role.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), name);
     }
 }

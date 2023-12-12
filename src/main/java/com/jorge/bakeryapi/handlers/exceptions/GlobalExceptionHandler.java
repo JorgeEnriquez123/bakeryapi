@@ -47,8 +47,14 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(UsernameAlreadyTakenException.class)
-    public ExceptionResponse usernameAlreadyTaken(UsernameAlreadyTakenException ex){
+    @ExceptionHandler(UsernameAlreadyExists.class)
+    public ExceptionResponse usernameAlreadyTaken(UsernameAlreadyExists ex){
+        return buildExceptionResponse(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(RoleAlreadyExists.class)
+    public ExceptionResponse roleAlreadyTaken(RoleAlreadyExists ex){
         return buildExceptionResponse(HttpStatus.CONFLICT, ex.getMessage());
     }
 

@@ -1,6 +1,7 @@
 package com.jorge.bakeryapi.controller;
 
 import com.jorge.bakeryapi.dto.UserDto;
+import com.jorge.bakeryapi.model.Role;
 import com.jorge.bakeryapi.model.User;
 import com.jorge.bakeryapi.service.serviceinterface.UserService;
 import jakarta.validation.Valid;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @RestController
@@ -55,5 +57,11 @@ public class UserController {
     @PatchMapping("/{userid}/removeRole/{roleid}")
     public User removeRoleFromUser(@PathVariable Long userid, @PathVariable Long roleid){
         return userService.removeRole(userid, roleid);
+    }
+
+    @DeleteMapping("/{userid}")
+    public void listss(@PathVariable Long userid){
+        User user = userService.findById(userid);
+        System.out.println(userService.findById(userid).getRoles());
     }
 }
