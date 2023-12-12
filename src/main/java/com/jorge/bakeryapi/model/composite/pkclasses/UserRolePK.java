@@ -1,4 +1,4 @@
-package com.jorge.bakeryapi.model.composite;
+package com.jorge.bakeryapi.model.composite.pkclasses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
