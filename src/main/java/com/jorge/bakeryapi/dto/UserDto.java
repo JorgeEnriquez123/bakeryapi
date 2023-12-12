@@ -12,7 +12,7 @@ public class UserDto {
     @NotBlank(message = "Username cannot be empty")
     private String username;
 
-    @Size(min = 8, message = "Password must have more than 7 characters")
+    @Size(min = 6, message = "Password must have at least 6 characters")
     @NotBlank(message = "Password cannot be empty")
     private String password;
 }
