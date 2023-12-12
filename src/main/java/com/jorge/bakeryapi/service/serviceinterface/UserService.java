@@ -6,6 +6,5 @@ import com.jorge.bakeryapi.model.User;
 public interface UserService extends GenericInterfaceService<User, UserDto> {
     User assignRole(Long userid, Long roleid);
     User removeRole(Long userid, Long roleid);
-
     User checkUserIfAvailable(String username);
 }
