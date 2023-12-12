@@ -7,5 +7,7 @@ public interface ProductService extends GenericInterfaceService<Product, Product
     Product assignCategory(Long productid, Long categoryid);
     Product removeCategory(Long productid);
 
+    Product assignIngredient(Long productid, Long ingredientid);
+    Product removeIngredient(Long productid, Long ingredientid);
     Product checkProductIfAvailable(String productName);
 }

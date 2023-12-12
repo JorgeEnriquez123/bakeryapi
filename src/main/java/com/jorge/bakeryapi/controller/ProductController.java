@@ -45,12 +45,22 @@ public class ProductController {
     }
 
     @PatchMapping("/{productid}/assigncategory/{categoryid}")
-    public Product assignRoleToProduct(@PathVariable Long productid, @PathVariable Long categoryid){
+    public Product assignCatgoryToProduct(@PathVariable Long productid, @PathVariable Long categoryid){
         return productService.assignCategory(productid, categoryid);
     }
 
     @PatchMapping("/{productid}/removeCategory")
-    public Product removeRoleFromProduct(@PathVariable Long productid){
+    public Product removeCategoryFromProduct(@PathVariable Long productid){
         return productService.removeCategory(productid);
+    }
+
+    @PatchMapping("/{productid}/assigningredient/{ingredientid}")
+    public Product assignIngredientToProduct(@PathVariable Long productid, @PathVariable Long ingredientid){
+        return productService.assignIngredient(productid, ingredientid);
+    }
+
+    @PatchMapping("/{productid}/removeIngredient/{ingredientid}")
+    public Product removeIngredientFromProduct(@PathVariable Long productid, @PathVariable Long ingredientid){
+        return productService.removeIngredient(productid, ingredientid);
     }
 }

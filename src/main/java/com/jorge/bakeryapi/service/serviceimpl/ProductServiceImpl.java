@@ -3,9 +3,9 @@ package com.jorge.bakeryapi.service.serviceimpl;
 import com.jorge.bakeryapi.dto.ProductDto;
 import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
 import com.jorge.bakeryapi.handlers.exceptions.ProductAlreadyExists;
-import com.jorge.bakeryapi.model.Category;
-import com.jorge.bakeryapi.model.Product;
+import com.jorge.bakeryapi.model.*;
 import com.jorge.bakeryapi.repository.CategoryRepository;
+import com.jorge.bakeryapi.repository.IngredientRepository;
 import com.jorge.bakeryapi.repository.ProductRepository;
 import com.jorge.bakeryapi.service.serviceinterface.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +19,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final IngredientRepository ingredientRepository;
     private final ModelMapper modelMapper;
     @Override
     public List<Product> findAll() {
@@ -87,6 +88,27 @@ public class ProductServiceImpl implements ProductService {
         }
         productToRemoveCategory.setCategory(null);
         return productRepository.save(productToRemoveCategory);
+    }
+
+    @Override
+    public Product assignIngredient(Long productid, Long ingredientid) {
+        Product productToAssignIngredient = productRepository.findById(productid)
+                .orElseThrow(() -> new NotFoundException("Product with ID: " + productid + " Not found"));
+        Ingredient ingredientToAssign = ingredientRepository.findById(ingredientid)
+                .orElseThrow(() -> new NotFoundException("Ingredient with ID: " + ingredientid + " Not found"));
+
+        productToAssignIngredient.getIngredients().add(ingredientToAssign);
+        return productRepository.save(productToAssignIngredient);
+    }
+
+    @Override
+    public Product removeIngredient(Long productid, Long ingredientid) {
+        Product productToRemoveIngredient = productRepository.findById(productid)
+                .orElseThrow(() -> new NotFoundException("Product with ID: " + productid + " Not found"));
+        Ingredient ingredientToRemove = ingredientRepository.findById(ingredientid)
+                .orElseThrow(() -> new NotFoundException("Ingredient with ID: " + ingredientid + " Not found"));
+        productToRemoveIngredient.getIngredients().remove(ingredientToRemove);
+        return productRepository.save(productToRemoveIngredient);
     }
 
     @Override
