@@ -34,11 +34,11 @@ public class GlobalExceptionHandler {
                 .errors(errorMap)
                 .build();
     }
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    /*@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(RuntimeException.class)
     public ExceptionResponse internalServerError(RuntimeException ex){
         return buildExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
-    }
+    }*/
 
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)

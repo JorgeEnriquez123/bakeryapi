@@ -5,6 +5,7 @@ import com.jorge.bakeryapi.model.Role;
 import com.jorge.bakeryapi.service.serviceinterface.RoleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/role")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class RoleController {
     private final RoleService roleService;
     @GetMapping("")

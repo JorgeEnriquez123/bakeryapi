@@ -33,7 +33,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        try {
             final String userEmail = jwtService.getUsernameFromToken(token);
             if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userAuthenticated = userDetailsService.loadUserByUsername(userEmail);
@@ -47,17 +46,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
             filterChain.doFilter(request, response);
-        }
-        catch (Exception e){
-            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-            response.setContentType("application/json");
-            String json = "{"
-                    + "\"timestamp\": \"" + new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()) + "\","
-                    + "\"status\": 500,"
-                    + "\"error\": \"" + e.getMessage() + "\""
-                    + "}";
-            response.getWriter().write(json);
-        }
     }
 
     private String getTokenFromRequest(HttpServletRequest request) {

@@ -29,7 +29,7 @@ public class BakeryapiApplication implements CommandLineRunner {
 		String encodedPassword = passwordEncoder.encode("jorge123");
 		user.setPassword(encodedPassword);
 
-		Role role = roleRepository.save(Role.builder().name("USER").build());
+		Role role = roleRepository.save(Role.builder().name("ADMIN").build());
 
 		user.getRoles().add(role);
 
