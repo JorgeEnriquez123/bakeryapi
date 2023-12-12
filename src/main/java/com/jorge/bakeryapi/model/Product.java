@@ -23,8 +23,6 @@ public class Product extends BaseEntity {
     private String name;
     @Column(length = 200)
     private String description;
-    @Column(nullable = false, columnDefinition = "decimal(6,2)")
-    private BigDecimal price;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -42,11 +40,11 @@ public class Product extends BaseEntity {
         if (this == object) return true;
         if (!(object instanceof Product product)) return false;
         if (!super.equals(object)) return false;
-        return Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(price, product.price);
+        return Objects.equals(name, product.name) && Objects.equals(description, product.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name, description, price);
+        return Objects.hash(super.hashCode(), name, description);
     }
 }

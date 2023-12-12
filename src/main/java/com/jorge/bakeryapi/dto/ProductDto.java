@@ -16,6 +16,4 @@ public class ProductDto {
     private String name;
     @Size(max = 200, message = "Product description must be under 200 characters long.")
     private String description;
-    @Min(value = 0, message = "Price must be greater or equal than 0")
-    private BigDecimal price;
 }
