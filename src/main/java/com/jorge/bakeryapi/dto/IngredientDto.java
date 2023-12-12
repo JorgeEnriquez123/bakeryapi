@@ -3,9 +3,12 @@ package com.jorge.bakeryapi.dto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
-
+@Getter
+@Setter
 public class IngredientDto {
     @Size(min = 5, max = 100, message = "Ingredient name must be between 5 and 100 characters long.")
     @NotBlank(message = "Ingredient name cannot be empty")
