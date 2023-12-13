@@ -1,14 +1,13 @@
 package com.jorge.bakeryapi.config.security;
 
 import com.jorge.bakeryapi.config.security.jwt.JwtService;
-import com.jorge.bakeryapi.dto.auth.*;
+import com.jorge.bakeryapi.dto.auth.LoginRequest;
+import com.jorge.bakeryapi.dto.auth.LoginResponse;
 import com.jorge.bakeryapi.model.User;
-import com.jorge.bakeryapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service

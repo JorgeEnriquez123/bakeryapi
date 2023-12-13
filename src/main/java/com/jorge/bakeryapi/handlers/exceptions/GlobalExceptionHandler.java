@@ -3,20 +3,14 @@ package com.jorge.bakeryapi.handlers.exceptions;
 import com.jorge.bakeryapi.handlers.exceptions.response.ExceptionResponse;
 import com.jorge.bakeryapi.handlers.exceptions.response.ValidationHandlerResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.context.request.WebRequest;
 
-import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RestControllerAdvice

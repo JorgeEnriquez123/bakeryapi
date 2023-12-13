@@ -2,7 +2,6 @@ package com.jorge.bakeryapi.service.serviceinterface;
 
 import com.jorge.bakeryapi.dto.IngredientDto;
 import com.jorge.bakeryapi.model.Ingredient;
-import com.jorge.bakeryapi.model.User;
 import com.jorge.bakeryapi.model.composite.IngredientBrand;
 
 import java.math.BigDecimal;

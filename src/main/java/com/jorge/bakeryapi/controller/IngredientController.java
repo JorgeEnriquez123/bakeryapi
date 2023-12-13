@@ -1,8 +1,6 @@
 package com.jorge.bakeryapi.controller;
 
 import com.jorge.bakeryapi.dto.IngredientDto;
-import com.jorge.bakeryapi.dto.IngredientDto;
-import com.jorge.bakeryapi.model.Ingredient;
 import com.jorge.bakeryapi.model.Ingredient;
 import com.jorge.bakeryapi.model.composite.IngredientBrand;
 import com.jorge.bakeryapi.service.serviceinterface.IngredientService;

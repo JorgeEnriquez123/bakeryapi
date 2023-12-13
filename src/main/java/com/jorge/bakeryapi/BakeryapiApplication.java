@@ -5,7 +5,6 @@ import com.jorge.bakeryapi.model.User;
 import com.jorge.bakeryapi.repository.RoleRepository;
 import com.jorge.bakeryapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,14 +1,12 @@
 package com.jorge.bakeryapi.config.security;
 
 import com.jorge.bakeryapi.handlers.exceptions.InvalidCredentialsException;
-import com.jorge.bakeryapi.handlers.exceptions.NotFoundException;
 import com.jorge.bakeryapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.userdetails.UserDetailsService;
